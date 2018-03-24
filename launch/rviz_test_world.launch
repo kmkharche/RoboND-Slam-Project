@@ -1,0 +1,5 @@
+<launch>
+
+	<node pkg="rviz" name="rviz" type="rviz" respawn="false" args="-d /home/apeksha/udacity/src/slam_project/rvizconfig.rviz"/> 
+		
+</launch>

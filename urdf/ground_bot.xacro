@@ -1,0 +1,380 @@
+<?xml version='1.0'?>
+
+<robot name="ground_bot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find slam_project)/urdf/ground_bot.gazebo"/>
+
+	<link name="robot_footprint"></link>
+	
+	<joint name="robot_footprint_joint" type="fixed">
+		<origin xyz="0 0 0" rpy="0 0 0"/>
+		<parent link="robot_footprint"/>
+		<child link="chassis"/>
+	</joint>
+	
+	<link name='chassis'>
+		<pose>0 0 0.05 0 0 0</pose>
+		
+		<inertial>
+			<mass value="20.0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia
+			ixx="0.33" ixy="0" ixz="0" 
+			iyy="0.33" iyz="0" 
+			izz="0.53"
+			/>
+    	</inertial>
+    	
+    	<collision name='collision'>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+    			<box size="0.4 0.4 0.2"/>
+    		</geometry>
+    	</collision>
+    	
+    	<visual name='chassis_visual'>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+    			<box size="0.4 0.4 0.2"/>
+    		</geometry>
+    		<material name="black">
+    			<color rgba="0 0 0 1"/>
+    		</material>
+    	</visual>
+    	
+    	<!--<collision name='back_caster_collision'>
+    		<origin xyz="-0.15 0 -0.1" rpy="0 0 0"/>
+    		<geometry>
+    			<sphere radius="0.05"/>
+    		</geometry>
+    		<surface>
+    			<friction>
+    				<ode>
+    					<mu>0</mu>
+    					<mu2>0</mu2>
+    				</ode>
+    			</friction>
+    		</surface>
+    	</collision>
+    	
+    	<visual name='back_caster_visual'>
+    		<origin xyz="-0.15 0 -0.1" rpy="0 0 0"/>
+    		<geometry>
+    			<sphere radius="0.05"/>
+    		</geometry>
+    		<material name="white">
+    			<color rgba="1 1 1 1"/>
+    		</material>
+    	</visual>
+    	
+    	<collision name='front_caster_collision'>
+    		<origin xyz="0.15 0 -0.1" rpy="0 0 0"/>
+    		<geometry>
+    			<sphere radius="0.05"/>
+    		</geometry>
+    		<surface>
+    			<friction>
+    				<ode>
+    					<mu>0</mu>
+    					<mu2>0</mu2>
+    				</ode>
+    			</friction>
+    		</surface>
+    	</collision>
+    	
+    	<visual name='front_caster_visual'>
+    		<origin xyz="0.15 0 -0.1" rpy="0 0 0"/>
+    		<geometry>
+    			<sphere radius="0.05"/>
+    		</geometry>
+    		<material name="white">
+    			<color rgba="1 1 1 1"/>
+    		</material>
+    	</visual>-->
+
+	</link>
+	
+	<joint name="upper_joint" type="fixed">
+		<origin xyz="0 0 0.2" rpy="0 0 0"/>
+		<parent link="chassis"/>
+		<child link="upper_body"/>
+	</joint>
+	
+	<link name="upper_body">
+		<inertial>
+			<mass value="10.0"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia
+			ixx="0.067" ixy="0" ixz="0" 
+			iyy="0.067" iyz="0" 
+			izz="0.067"
+			/>
+    	</inertial>
+    	
+    	<visual name='upper_body_visual'>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+    		<geometry>
+    			<box size="0.2 0.2 0.2"/>
+    		</geometry>
+    		<material name="grey">
+    			<color rgba="0.5 0.5 0.5 1"/>
+    		</material>
+    	</visual>
+    	
+    	<collision name='upper_body_collision'>
+    		<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+    			<box size="0.2 0.2 0.2"/>
+    		</geometry>
+    	</collision>
+    </link>
+		
+		
+	<joint name="left_wheel_hinge" type="continuous">
+		<origin xyz="0.15 0.25 -0.05" rpy="0 0 0"/>
+		<parent link="chassis"/>
+		<child link="left_wheel"/>
+		<axis xyz="0 1 0" rpy="0 0 0"/>
+		<limit effort="10000" velocity="1000"/>
+		<joint_properties damping="1.0" friction="1.0"/>
+	</joint>
+	
+	<link name='left_wheel'>
+		<inertial>
+			<mass value="5.0"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+			ixx="0.1" ixy="0" ixz="0" 
+			iyy="0.1" iyz="0" 
+			izz="0.1"
+			/>
+    	</inertial>
+    	
+    	<collision name='left_wheel_colision'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<surface>
+    			<friction>
+    				<ode>
+    					<mu>0.5</mu>
+    					<mu2>0.5</mu2>
+    				</ode>
+    			</friction>
+    		</surface>
+		</collision>
+		
+		<visual name='left_wheel_visual'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<material name="blue">
+    			<color rgba="0 0 1 1"/>
+    		</material>
+		</visual>
+	</link>
+	
+	<joint name="right_wheel_hinge" type="continuous">
+		<origin xyz="0.15 -0.25 -0.05" rpy="0 0 0"/>
+		<parent link="chassis"/>
+		<child link="right_wheel"/>
+		<axis xyz="0 1 0" rpy="0 0 0"/>
+		<limit effort="10000" velocity="1000"/>
+		<joint_properties damping="1.0" friction="1.0"/>
+	</joint>
+	
+	<link name='right_wheel'>
+		<inertial>
+			<mass value="5.0"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+			ixx="0.1" ixy="0" ixz="0" 
+			iyy="0.1" iyz="0" 
+			izz="0.1"
+			/>
+    	</inertial>
+    	
+    	<collision name='right_wheel_colision'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<surface>
+    			<friction>
+    				<ode>
+    					<mu>0.5</mu>
+    					<mu2>0.5</mu2>
+    				</ode>
+    			</friction>
+    		</surface>
+		</collision>
+		
+		<visual name='right_wheel_visual'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<material name="blue">
+    			<color rgba="0 0 1 1"/>
+    		</material>
+		</visual>
+	</link>
+	
+	<joint name="lback_wheel_hinge" type="continuous">
+		<origin xyz="-0.15 0.25 -0.05" rpy="0 0 0"/>
+		<parent link="chassis"/>
+		<child link="lback_wheel"/>
+		<axis xyz="0 1 0" rpy="0 0 0"/>
+		<limit effort="10000" velocity="1000"/>
+		<joint_properties damping="1.0" friction="1.0"/>
+	</joint>
+	
+	<link name='lback_wheel'>
+		<inertial>
+			<mass value="5.0"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+			ixx="0.1" ixy="0" ixz="0" 
+			iyy="0.1" iyz="0" 
+			izz="0.1"
+			/>
+    	</inertial>
+    	
+    	<collision name='lback_wheel_colision'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<surface>
+    			<friction>
+    				<ode>
+    					<mu>0.5</mu>
+    					<mu2>0.5</mu2>
+    				</ode>
+    			</friction>
+    		</surface>
+		</collision>
+		
+		<visual name='lback_wheel_visual'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<material name="blue">
+    			<color rgba="0 0 1 1"/>
+    		</material>
+		</visual>
+	</link>
+	
+	<joint name="rback_wheel_hinge" type="continuous">
+		<origin xyz="-0.15 -0.25 -0.05" rpy="0 0 0"/>
+		<parent link="chassis"/>
+		<child link="rback_wheel"/>
+		<axis xyz="0 1 0" rpy="0 0 0"/>
+		<limit effort="10000" velocity="1000"/>
+		<joint_properties damping="1.0" friction="1.0"/>
+	</joint>
+	
+	<link name='rback_wheel'>
+		<inertial>
+			<mass value="5.0"/>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<inertia
+			ixx="0.1" ixy="0" ixz="0" 
+			iyy="0.1" iyz="0" 
+			izz="0.1"
+			/>
+    	</inertial>
+    	
+    	<collision name='rback_wheel_colision'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<surface>
+    			<friction>
+    				<ode>
+    					<mu>0.5</mu>
+    					<mu2>0.5</mu2>
+    				</ode>
+    			</friction>
+    		</surface>
+		</collision>
+		
+		<visual name='rback_wheel_visual'>
+			<origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+			<geometry>
+				<cylinder radius="0.1" length="0.05"/>
+			</geometry>
+			<material name="blue">
+    			<color rgba="0 0 1 1"/>
+    		</material>
+		</visual>
+	</link>
+	
+	<joint type="fixed" name="camera_joint">
+		<origin xyz="0.125 0 0.2" rpy="0 0 0"/>
+		<child link="camera"/>
+		<parent link="chassis"/>
+	</joint>
+   
+	<link name='camera'>
+    
+		<inertial>
+		  <mass value="0.1"/>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+		</inertial>
+
+		<visual name='camera_visual'>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <geometry>
+		    <box size="0.05 0.05 0.05"/>
+		  </geometry>
+		  <material name="red">
+		    <color rgba="1 0 0 1"/>
+		  </material>
+		</visual>
+	  
+		<collision name='camera_collision'>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <geometry>
+		    <box size="0.05 0.05 0.05"/>
+		  </geometry>
+		</collision>
+  
+	</link>
+	
+	<joint type="fixed" name="hokuyo_joint">
+		<origin xyz="0 0 .325" rpy="0 0 0"/>
+		<child link="hokuyo"/>
+		<parent link="chassis"/>
+	</joint>
+	
+	<link name='hokuyo'>
+   
+		<inertial>
+			<mass value="0.1"/>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+		</inertial>
+
+		<visual name='hokuyo_visual'>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://slam_project/meshes/hokuyo.dae"/>
+			</geometry>
+		</visual>
+
+		<collision name='hokuyo_collision'>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<box size="0.1 0.1 0.1"/>
+			</geometry>
+		</collision>
+
+	</link>	
+
+</robot>
