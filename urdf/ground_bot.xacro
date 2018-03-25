@@ -347,6 +347,22 @@
   
 	</link>
 	
+	<joint type="fixed" name="kinect_rpy_joint">
+		<origin xyz="0.125 0 0.2" rpy="-1.58 0 -1.58"/>
+		<child link="camera_rgbd_frame"/>
+		<parent link="camera"/>
+	</joint>
+	
+	<link name='camera_rgbd_frame'>
+    
+		<inertial>
+		  <mass value="0.0"/>
+		  <origin xyz="0 0 0" rpy="0 0 0"/>
+		  <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+		</inertial>
+		
+	</link>
+	
 	<joint type="fixed" name="hokuyo_joint">
 		<origin xyz="0 0 .325" rpy="0 0 0"/>
 		<child link="hokuyo"/>

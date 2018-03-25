@@ -97,6 +97,10 @@
     </sensor>
   </gazebo>-->
   
+  <!--<gazebo reference="camera">
+  	<material>Gazebo/Red</material>
+  </gazebo>-->
+  
   <!-- RGBD Camera -->
   <gazebo reference="camera">
   	<material>Gazebo/Red</material>
@@ -123,7 +127,7 @@
              <alwaysOn>true</alwaysOn>
                 <updateRate>10.0</updateRate>
                 <cameraName>camera</cameraName>
-                <frameName>camera</frameName>                   
+                <frameName>camera_rgbd_frame</frameName>                   
             <imageTopicName>rgb/image_raw</imageTopicName>
             <depthImageTopicName>depth/image_raw</depthImageTopicName>
             <pointCloudTopicName>depth/points</pointCloudTopicName>
