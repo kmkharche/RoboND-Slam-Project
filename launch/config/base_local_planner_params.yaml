@@ -1,0 +1,16 @@
+TrajectoryPlannerROS:
+
+  holonomic_robot: false
+  yaw_goal_tolerance: 0.01
+  xy_goal_tolerance: 0.1
+  sim_time: 1.5
+  pdist_scale: 1.2
+  gdist_scale: 1.0
+  meter_scoring: true
+  angular_sim_granularity: 0.01
+#  acc_lim_x: 20.0
+#  acc_lim_y: 20.0
+#  max_vel_x: 0.2
+#  min_vel_x: -0.1
+#  max_vel_thata: 0.2
+#  min_vel_theta: -0.2
