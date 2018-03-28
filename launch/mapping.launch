@@ -51,12 +51,14 @@
 
 		<!-- Minimum visual inliers to accept loop closure -->
 		<param name="Vis/MinInliers" type="string" value="20"/> 
+		<!--Set to 40 for the new project.world file-->
 
 		<!-- Set to false to avoid saving data when robot is not moving -->
 		<param name="Mem/NotLinkedNodesKept" type="string" value="false"/>
 		
 		<!--Remove matches with higher error-->
 		<param name="RGBD/OptimizeMaxError" type="double" value="0.5"/>
+		<!--Set to 0.1 for the new project.world file-->
 
 
     </node> 
